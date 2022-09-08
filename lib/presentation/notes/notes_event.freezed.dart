@@ -20,21 +20,21 @@ mixin _$NotesEvent<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() loadNotes,
     required TResult Function(Note note) deleteNote,
-    required TResult Function(Note note) restoreNote,
+    required TResult Function() restoreNote,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loadNotes,
     TResult Function(Note note)? deleteNote,
-    TResult Function(Note note)? restoreNote,
+    TResult Function()? restoreNote,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadNotes,
     TResult Function(Note note)? deleteNote,
-    TResult Function(Note note)? restoreNote,
+    TResult Function()? restoreNote,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -122,7 +122,7 @@ class _$LoadNotes<T> implements LoadNotes<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() loadNotes,
     required TResult Function(Note note) deleteNote,
-    required TResult Function(Note note) restoreNote,
+    required TResult Function() restoreNote,
   }) {
     return loadNotes();
   }
@@ -132,7 +132,7 @@ class _$LoadNotes<T> implements LoadNotes<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loadNotes,
     TResult Function(Note note)? deleteNote,
-    TResult Function(Note note)? restoreNote,
+    TResult Function()? restoreNote,
   }) {
     return loadNotes?.call();
   }
@@ -142,7 +142,7 @@ class _$LoadNotes<T> implements LoadNotes<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadNotes,
     TResult Function(Note note)? deleteNote,
-    TResult Function(Note note)? restoreNote,
+    TResult Function()? restoreNote,
     required TResult orElse(),
   }) {
     if (loadNotes != null) {
@@ -266,7 +266,7 @@ class _$DeleteNote<T> implements DeleteNote<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() loadNotes,
     required TResult Function(Note note) deleteNote,
-    required TResult Function(Note note) restoreNote,
+    required TResult Function() restoreNote,
   }) {
     return deleteNote(note);
   }
@@ -276,7 +276,7 @@ class _$DeleteNote<T> implements DeleteNote<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loadNotes,
     TResult Function(Note note)? deleteNote,
-    TResult Function(Note note)? restoreNote,
+    TResult Function()? restoreNote,
   }) {
     return deleteNote?.call(note);
   }
@@ -286,7 +286,7 @@ class _$DeleteNote<T> implements DeleteNote<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadNotes,
     TResult Function(Note note)? deleteNote,
-    TResult Function(Note note)? restoreNote,
+    TResult Function()? restoreNote,
     required TResult orElse(),
   }) {
     if (deleteNote != null) {
@@ -344,9 +344,6 @@ abstract class _$$RestoreNoteCopyWith<T, $Res> {
   factory _$$RestoreNoteCopyWith(
           _$RestoreNote<T> value, $Res Function(_$RestoreNote<T>) then) =
       __$$RestoreNoteCopyWithImpl<T, $Res>;
-  $Res call({Note note});
-
-  $NoteCopyWith<$Res> get note;
 }
 
 /// @nodoc
@@ -359,65 +356,35 @@ class __$$RestoreNoteCopyWithImpl<T, $Res>
 
   @override
   _$RestoreNote<T> get _value => super._value as _$RestoreNote<T>;
-
-  @override
-  $Res call({
-    Object? note = freezed,
-  }) {
-    return _then(_$RestoreNote<T>(
-      note == freezed
-          ? _value.note
-          : note // ignore: cast_nullable_to_non_nullable
-              as Note,
-    ));
-  }
-
-  @override
-  $NoteCopyWith<$Res> get note {
-    return $NoteCopyWith<$Res>(_value.note, (value) {
-      return _then(_value.copyWith(note: value));
-    });
-  }
 }
 
 /// @nodoc
 
 class _$RestoreNote<T> implements RestoreNote<T> {
-  const _$RestoreNote(this.note);
-
-  @override
-  final Note note;
+  const _$RestoreNote();
 
   @override
   String toString() {
-    return 'NotesEvent<$T>.restoreNote(note: $note)';
+    return 'NotesEvent<$T>.restoreNote()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$RestoreNote<T> &&
-            const DeepCollectionEquality().equals(other.note, note));
+        (other.runtimeType == runtimeType && other is _$RestoreNote<T>);
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(note));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$RestoreNoteCopyWith<T, _$RestoreNote<T>> get copyWith =>
-      __$$RestoreNoteCopyWithImpl<T, _$RestoreNote<T>>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadNotes,
     required TResult Function(Note note) deleteNote,
-    required TResult Function(Note note) restoreNote,
+    required TResult Function() restoreNote,
   }) {
-    return restoreNote(note);
+    return restoreNote();
   }
 
   @override
@@ -425,9 +392,9 @@ class _$RestoreNote<T> implements RestoreNote<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loadNotes,
     TResult Function(Note note)? deleteNote,
-    TResult Function(Note note)? restoreNote,
+    TResult Function()? restoreNote,
   }) {
-    return restoreNote?.call(note);
+    return restoreNote?.call();
   }
 
   @override
@@ -435,11 +402,11 @@ class _$RestoreNote<T> implements RestoreNote<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadNotes,
     TResult Function(Note note)? deleteNote,
-    TResult Function(Note note)? restoreNote,
+    TResult Function()? restoreNote,
     required TResult orElse(),
   }) {
     if (restoreNote != null) {
-      return restoreNote(note);
+      return restoreNote();
     }
     return orElse();
   }
@@ -480,10 +447,5 @@ class _$RestoreNote<T> implements RestoreNote<T> {
 }
 
 abstract class RestoreNote<T> implements NotesEvent<T> {
-  const factory RestoreNote(final Note note) = _$RestoreNote<T>;
-
-  Note get note;
-  @JsonKey(ignore: true)
-  _$$RestoreNoteCopyWith<T, _$RestoreNote<T>> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory RestoreNote() = _$RestoreNote<T>;
 }
