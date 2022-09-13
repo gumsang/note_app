@@ -2,10 +2,10 @@ import 'package:sqflite/sqlite_api.dart';
 
 import '../../domain/model/note.dart';
 
-class NoteDb {
+class NoteDbHelper {
   Database db;
 
-  NoteDb(this.db);
+  NoteDbHelper(this.db);
 
   Future<Note?> getNoteById(int id) async {
     final List<Map<String, dynamic>> maps = await db.query(

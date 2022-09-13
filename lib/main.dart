@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/di/provider_setup.dart';
 import 'package:note_app/presentation/notes/note_screen.dart';
 import 'package:note_app/ui/colors.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final providers = await getProviders();
+  runApp(
+    MultiProvider(
+      providers: providers,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
