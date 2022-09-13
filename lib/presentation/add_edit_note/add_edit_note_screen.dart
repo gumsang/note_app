@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/presentation/add_edit_note/add_edit_note_event.dart';
+import 'package:note_app/presentation/add_edit_note/add_edit_note_view_model.dart';
 import 'package:note_app/ui/colors.dart';
+import 'package:provider/provider.dart';
+
+import '../../domain/model/note.dart';
 
 class AddEditNoteScreen extends StatefulWidget {
-  const AddEditNoteScreen({super.key});
+  final Note? note;
+  const AddEditNoteScreen({super.key, this.note});
 
   @override
   State<AddEditNoteScreen> createState() => _AddEditNoteScreenState();
@@ -20,7 +26,7 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
     illusion,
   ];
 
-  Color _color = roseBud;
+  final Color _color = roseBud;
 
   @override
   void dispose() {
@@ -31,17 +37,33 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final viewmodel = context.watch<AddEditNoteViewModel>();
     return SafeArea(
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            if (_titleController.text.isEmpty ||
+                _contentController.text.isEmpty) {
+              const snackBar = SnackBar(
+                content: Text('제목이나 내용이 비어있습니다'),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+            viewmodel.onEvent(
+              AddEditNoteEvent.saveNote(
+                widget.note == null ? null : widget.note!.id,
+                _titleController.text,
+                _contentController.text,
+              ),
+            );
+          },
           child: const Icon(Icons.save),
         ),
         body: AnimatedContainer(
           padding: const EdgeInsets.all(16),
           duration: const Duration(microseconds: 500),
           // curve: Curves.fastOutSlowIn,
-          color: _color,
+          color: Color(viewmodel.color),
           child: Column(
             children: [
               Row(
@@ -49,12 +71,12 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
                 children: noteColor
                     .map((color) => InkWell(
                         onTap: () {
-                          setState(() {
-                            _color = color;
-                          });
+                          viewmodel.onEvent(
+                              AddEditNoteEvent.changeColor(color.value));
                         },
                         child: _buildBackgroundColor(
-                            color: color, selected: _color == color)))
+                            color: color,
+                            selected: viewmodel.color == color.value)))
                     .toList(),
               ),
               TextField(

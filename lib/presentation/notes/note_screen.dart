@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/domain/model/note.dart';
 import 'package:note_app/presentation/add_edit_note/add_edit_note_screen.dart';
 import 'package:note_app/presentation/notes/components/note_item.dart';
-import 'package:note_app/ui/colors.dart';
+import 'package:note_app/presentation/notes/notes_view_model.dart';
+import 'package:provider/provider.dart';
 
 class NoteScreen extends StatelessWidget {
   const NoteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<NoteViewModel>();
+    final state = viewModel.state;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -39,24 +41,11 @@ class NoteScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
-          children: [
-            NoteItem(
-              note: Note(
-                title: 'title1',
-                content: 'content1',
-                color: wisteria.value,
-                timestamp: 1,
-              ),
-            ),
-            NoteItem(
-              note: Note(
-                title: 'title2',
-                content: 'content2',
-                color: skyBlue.value,
-                timestamp: 2,
-              ),
-            ),
-          ],
+          children: state.notes
+              .map(
+                (note) => NoteItem(note: note),
+              )
+              .toList(),
         ),
       ),
     );
