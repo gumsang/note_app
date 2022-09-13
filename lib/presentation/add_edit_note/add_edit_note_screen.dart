@@ -87,7 +87,7 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
           duration: const Duration(microseconds: 500),
           // curve: Curves.fastOutSlowIn,
           color: Color(viewmodel.color),
-          child: Column(
+          child: ListView(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
