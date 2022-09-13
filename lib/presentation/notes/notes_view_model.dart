@@ -5,14 +5,14 @@ import 'package:note_app/presentation/notes/notes_state.dart';
 import '../../domain/model/note.dart';
 import 'notes_event.dart';
 
-class NoteViewModel with ChangeNotifier {
+class NotesViewModel with ChangeNotifier {
   final NoteRepository repository;
 
   NotesState _state = const NotesState(notes: []);
   NotesState get state => _state;
 
   Note? _recentlyDeletedNote;
-  NoteViewModel(this.repository) {
+  NotesViewModel(this.repository) {
     _loadNotes();
   }
 
