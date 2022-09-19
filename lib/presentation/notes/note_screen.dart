@@ -80,7 +80,6 @@ class NoteScreen extends StatelessWidget {
                     note: note,
                     onDeleteTap: () {
                       viewModel.onEvent(NotesEvent.deleteNote(note));
-
                       final snackBar = SnackBar(
                         content: const Text('노트가 삭제되었습니다.'),
                         action: SnackBarAction(
